@@ -30,7 +30,10 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [],
+            "allowedCommonJsDependencies": [
+              "chart.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -43,7 +46,6 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
               "namedChunks": false,
               "extractLicenses": true,
               "vendorChunk": false,
@@ -132,6 +134,6 @@
   },
   "defaultProject": "ponyracer",
   "cli": {
-    "analytics": "c2e40180-914f-4a60-b7ca-5642b3508135"
+    "analytics": "760fbd62-e53c-4421-9ed5-79a23b754563"
   }
 }

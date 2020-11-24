@@ -1,25 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'pr-menu',
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.css']
 })
-export class MenuComponent implements OnInit {
-
+export class MenuComponent {
   navbarCollapsed = true;
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
   toggleNavbar(): void {
-  if (this.navbarCollapsed) {
-    this.navbarCollapsed = false;
-  }
-  else {
-    this.navbarCollapsed = true;
-  }
+    this.navbarCollapsed = !this.navbarCollapsed;
   }
 }

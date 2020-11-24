@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
-import {Observable, of} from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { delay } from 'rxjs/operators';
-import {RaceModel} from './models/race.model';
+
+import { RaceModel } from './models/race.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RaceService {
-
-  constructor() { }
   list(): Observable<Array<RaceModel>> {
     return of([
       {
@@ -22,7 +21,8 @@ export class RaceService {
           { id: 5, name: 'Fast Rainbow', color: 'BLUE' }
         ],
         startInstant: '2020-02-18T08:02:00Z'
-      }, {
+      },
+      {
         id: 13,
         name: 'Tokyo',
         ponies: [
@@ -34,7 +34,6 @@ export class RaceService {
         ],
         startInstant: '2020-02-18T08:03:00Z'
       }
-      ]).pipe(delay(500));
+    ]).pipe(delay(500));
   }
-
 }
