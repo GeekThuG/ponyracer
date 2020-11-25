@@ -8,6 +8,6 @@
         "stackTrace": "Error: Failed expectation\n    at UserContext.<anonymous> (C:\\Users\\hfenyom\\Desktop\\ponyracer\\e2e\\src\\app.e2e-spec.ts:13:39)\n    at processTicksAndRejections (internal/process/task_queues.js:93:5)"
       }
     ],
-    "duration": 787
+    "duration": 839
   }
 ]
