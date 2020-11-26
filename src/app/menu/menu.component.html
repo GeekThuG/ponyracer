@@ -11,6 +11,10 @@
           <span class="fa fa-star"></span>
           {{ user.money }}
         </span>
+        <a (click)="logout($event)" class="nav-item nav-link">
+          <span class="fa fa-power-off">
+          </span>
+        </a>
       </div>
       <li class="nav-item">
         <a class="nav-link" routerLink="/races">Races</a>

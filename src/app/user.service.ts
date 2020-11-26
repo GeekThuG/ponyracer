@@ -34,5 +34,9 @@ export class UserService {
       this.userEvents.next(user);
     }
   }
+  logout(): void {
+    this.userEvents.next(null);
+    localStorage.removeItem('rememberMe');
+  }
 
 }
