@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Observable, Subject} from 'rxjs';
+import {BehaviorSubject, Observable } from 'rxjs';
 import {UserModel} from './models/user.model';
 import {HttpClient} from '@angular/common/http';
 import {tap} from 'rxjs/operators';
@@ -8,7 +8,7 @@ import {tap} from 'rxjs/operators';
   providedIn: 'root'
 })
 export class UserService {
-  userEvents = new Subject<UserModel>();
+  userEvents = new BehaviorSubject<UserModel>(undefined);
 
   private readonly apiUrl = 'https://ponyracer.ninja-squad.com/api/users';
 
