@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import {UserModel} from '../models/user.model';
 import {Subscription} from 'rxjs';
 import {UserService} from '../user.service';
-import {Router} from "@angular/router";
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'pr-menu',
