@@ -13,12 +13,13 @@ import {PonyModel} from '../models/pony.model';
 export class BetComponent implements OnInit {
  @Input() raceModel: RaceModel;
   betFailed = false;
+  id: number;
 
   constructor(private route: ActivatedRoute, private raceService: RaceService) { }
 
   ngOnInit(): void {
-    const id = +this.route.snapshot.paramMap.get('raceId');
-    this.raceService.get(id).subscribe(raceModel => (this.raceModel = raceModel));
+    this.id = +this.route.snapshot.paramMap.get('raceId');
+    this.raceService.get(this.id).subscribe(raceModel => (this.raceModel = raceModel));
   }
 
   betOnPony(pony: PonyModel): void {
