@@ -5,7 +5,7 @@ import {HttpClient} from '@angular/common/http';
 import {tap} from 'rxjs/operators';
 import {environment} from '../environments/environment';
 import {JwtInterceptor} from './jwt.interceptor';
-import {WsService} from "./ws.service";
+import {WsService} from './ws.service';
 
 
 @Injectable({
@@ -48,6 +48,10 @@ export class UserService {
 
   scoreUpdates(userId: number): Observable<UserModel> {
     return this.wsService.connect<UserModel>( '/player/' + userId);
+  }
+
+  isLoggedIn(): boolean {
+    return !!window.localStorage.getItem('rememberMe');
   }
 
 }
