@@ -4,7 +4,7 @@ import {RaceService} from '../race.service';
 import {ActivatedRoute} from '@angular/router';
 import {EMPTY, interval, Subject, Subscription} from 'rxjs';
 import {PonyWithPositionModel} from '../models/pony.model';
-import {bufferToggle, catchError, filter, groupBy, map, mergeMap, switchMap, tap, throttleTime} from 'rxjs/operators';
+import {bufferToggle, catchError, filter, groupBy, map, mergeMap, switchMap, throttleTime} from 'rxjs/operators';
 
 @Component({
   selector: 'pr-live',
@@ -17,7 +17,7 @@ export class LiveComponent implements OnInit, OnDestroy {
   poniesWithPosition: Array<PonyWithPositionModel> = [];
   positionSubscription: Subscription;
   error = false;
-  winners: Array<PonyWithPositionModel>;
+  winners: Array<PonyWithPositionModel> = [];
   betWon: boolean;
   clickSubject = new Subject<PonyWithPositionModel>();
 
@@ -25,24 +25,22 @@ export class LiveComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.id = +this.route.snapshot.paramMap.get('raceId');
-    this.positionSubscription = this.raceService.get(this.id).pipe(
-      tap((race: RaceModel) => this.raceModel = race),
-      filter(race => this.raceModel.status !== 'FINISHED'),
-      switchMap(race => this.raceService.live(race.id))
-    )
-      .subscribe({
+    // this.id = +this.route.snapshot.paramMap.get('raceId');
+    this.raceModel = this.route.snapshot.data.race;
+    if (this.raceModel.status !== 'FINISHED') {
+      this.positionSubscription = this.raceService.live(this.raceModel.id).subscribe({
         next: positions => {
           this.poniesWithPosition = positions;
           this.raceModel.status = 'RUNNING';
         },
-        error: () => this.error = true,
+        error: () => (this.error = true),
         complete: () => {
           this.raceModel.status = 'FINISHED';
           this.winners = this.poniesWithPosition.filter(pony => pony.position >= 100);
           this.betWon = this.winners.some(pony => pony.id === this.raceModel.betPonyId);
         }
       });
+    }
 
     this.clickSubject
       .pipe(
