@@ -10,13 +10,14 @@ export class PonyComponent implements OnInit {
   @Input() ponyModel: PonyModel;
   @Output() readonly ponyClicked = new EventEmitter<PonyModel>();
   @Input() isRunning: boolean;
+  @Input() isBoosted: boolean;
 
   constructor() {}
 
   ngOnInit(): void {}
 
   getPonyImageUrl(): string {
-    return `assets/images/pony-${this.ponyModel.color.toLowerCase()}${this.isRunning ? '-running' : ''}.gif`;
+    return `assets/images/pony-${this.ponyModel.color.toLowerCase()}${this.isBoosted ? '-rainbow' : this.isRunning ? '-running' : ''}.gif`;
   }
   clicked(): void {
     this.ponyClicked.emit(this.ponyModel);
