@@ -5,6 +5,7 @@ import {HttpClient} from '@angular/common/http';
 import {tap} from 'rxjs/operators';
 import {environment} from '../environments/environment';
 import {JwtInterceptor} from './jwt.interceptor';
+import {WsService} from "./ws.service";
 
 
 @Injectable({
@@ -13,7 +14,9 @@ import {JwtInterceptor} from './jwt.interceptor';
 export class UserService {
   userEvents = new BehaviorSubject<UserModel>(undefined);
 
-  constructor(private http: HttpClient, private jwtInterceptor: JwtInterceptor) { }
+  constructor(private http: HttpClient,
+              private jwtInterceptor: JwtInterceptor,
+              private wsService: WsService ) { }
 
   register(login: string, password: string, birthYear: number): Observable<UserModel> {
     return this.http.post<UserModel>(environment.baseUrl + '/api/users', {login, password, birthYear});
@@ -41,6 +44,10 @@ export class UserService {
     this.userEvents.next(null);
     localStorage.removeItem('rememberMe');
     this.jwtInterceptor.removeJwtToken();
+  }
+
+  scoreUpdates(userId: number): Observable<UserModel> {
+    return this.wsService.connect<UserModel>( '/player/' + userId);
   }
 
 }
