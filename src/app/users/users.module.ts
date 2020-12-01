@@ -6,11 +6,12 @@ import {ReactiveFormsModule, FormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
 import {USERS_ROUTES} from './users.routes';
 import {SharedModule} from '../shared/shared.module';
+import { MoneyHistoryComponent } from './money-history/money-history.component';
 
 
 
 @NgModule({
-  declarations: [RegisterComponent, LoginComponent],
+  declarations: [RegisterComponent, LoginComponent, MoneyHistoryComponent],
   imports: [FormsModule, ReactiveFormsModule, RouterModule.forChild(USERS_ROUTES),
     CommonModule, SharedModule
   ]
