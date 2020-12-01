@@ -1,4 +1,4 @@
-import {Component, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 @Component({
   selector: 'pr-alert',
@@ -6,6 +6,9 @@ import {Component, OnInit, Output} from '@angular/core';
   styleUrls: ['./alert.component.css']
 })
 export class AlertComponent implements OnInit {
+  @Output() readonly closed = new EventEmitter<void>();
+  @Input() type = 'warning';
+  @Input() dismissible = true;
 
   constructor() { }
 
@@ -13,7 +16,10 @@ export class AlertComponent implements OnInit {
   }
 
   closeHandler(): void {
-
+  this.closed.emit();
   }
 
+  get alertClasses(): string {
+    return `alert alert-${this.type}`;
+  }
 }

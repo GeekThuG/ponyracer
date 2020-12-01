@@ -8,5 +8,5 @@
       <pr-pony (ponyClicked)="betOnPony(pony)" [ponyModel]="pony"></pr-pony>
     </li>
   </ul>
-  <div *ngIf="betFailed" class="alert alert-danger">The race is already started or finished</div>
+  <pr-alert type="danger" *ngIf="betFailed" (closed)="betFailed = false">The race is already started or finished</pr-alert>
 </div>

@@ -10,6 +10,7 @@ import {LiveComponent} from '../live/live.component';
 import {FromNowPipe} from '../from-now.pipe';
 import {RouterModule} from '@angular/router';
 import {RACES_ROUTES} from './races.routes';
+import {SharedModule} from '../shared/shared.module';
 
 
 
@@ -18,7 +19,7 @@ import {RACES_ROUTES} from './races.routes';
     PendingRacesComponent, FinishedRacesComponent,
     PonyComponent, BetComponent, LiveComponent, FromNowPipe],
   imports: [RouterModule.forChild(RACES_ROUTES),
-    CommonModule
+    CommonModule, SharedModule
   ]
 })
 export class RacesModule { }

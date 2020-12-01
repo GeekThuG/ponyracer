@@ -9,14 +9,12 @@ import {PreloadAllModules, RouterModule} from '@angular/router';
 import {ROUTES} from './app.routes';
 import {ReactiveFormsModule, FormsModule} from '@angular/forms';
 import {JwtInterceptor} from './jwt.interceptor';
-import { AlertComponent } from './shared/alert/alert.component';
 
 
 
 @NgModule({
   declarations: [AppComponent, MenuComponent,
-    HomeComponent,
-    AlertComponent],
+    HomeComponent],
   imports: [BrowserModule, HttpClientModule, RouterModule.forRoot(ROUTES, { preloadingStrategy: PreloadAllModules }),
     ReactiveFormsModule, FormsModule],
   providers: [{ provide: HTTP_INTERCEPTORS, useExisting: JwtInterceptor, multi: true }],
