@@ -14,7 +14,7 @@
 
   <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">Login</button>
 
-  <pr-alert type="danger" *ngIf="authenticationFailed" (closed)="authenticationFailed = false">Nope, try again</pr-alert>
+  <ngb-alert type="danger" *ngIf="authenticationFailed" (closed)="authenticationFailed = false">Nope, try again</ngb-alert>
 </form>
 
 

@@ -9,15 +9,16 @@ import {PreloadAllModules, RouterModule} from '@angular/router';
 import {ROUTES} from './app.routes';
 import {ReactiveFormsModule, FormsModule} from '@angular/forms';
 import {JwtInterceptor} from './jwt.interceptor';
+import {NgbCollapseModule, NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 
 
 @NgModule({
   declarations: [AppComponent, MenuComponent,
     HomeComponent],
-  imports: [BrowserModule, HttpClientModule, RouterModule.forRoot(ROUTES, { preloadingStrategy: PreloadAllModules }),
-    ReactiveFormsModule, FormsModule],
-  providers: [{ provide: HTTP_INTERCEPTORS, useExisting: JwtInterceptor, multi: true }],
+  imports: [BrowserModule, HttpClientModule, RouterModule.forRoot(ROUTES, {preloadingStrategy: PreloadAllModules}),
+    ReactiveFormsModule, FormsModule, NgbModule, NgbModule],
+  providers: [{ provide: HTTP_INTERCEPTORS, useExisting: JwtInterceptor, multi: true }, NgbCollapseModule],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
