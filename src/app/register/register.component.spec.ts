@@ -1,12 +1,14 @@
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { Router } from '@angular/router';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { of, throwError } from 'rxjs';
 
+import { UsersModule } from '../users/users.module';
 import { RegisterComponent } from './register.component';
 import { UserService } from '../user.service';
 import { UserModel } from '../models/user.model';
+import { AlertComponent } from '../shared/alert/alert.component';
 
 describe('RegisterComponent', () => {
   const fakeUserService = jasmine.createSpyObj<UserService>('UserService', ['register']);
@@ -14,8 +16,7 @@ describe('RegisterComponent', () => {
 
   beforeEach(() =>
     TestBed.configureTestingModule({
-      imports: [ReactiveFormsModule],
-      declarations: [RegisterComponent],
+      imports: [UsersModule],
       providers: [
         { provide: UserService, useValue: fakeUserService },
         { provide: Router, useValue: fakeRouter }
@@ -261,7 +262,7 @@ describe('RegisterComponent', () => {
   });
 
   it('should have min/max validators to check the year validity', () => {
-    const fixture: ComponentFixture<RegisterComponent> = TestBed.createComponent(RegisterComponent);
+    const fixture = TestBed.createComponent(RegisterComponent);
     fixture.detectChanges();
 
     const componentInstance = fixture.componentInstance;
@@ -349,10 +350,9 @@ describe('RegisterComponent', () => {
       .withContext('You should set a field `registrationFailed` to `true` if the registration fails')
       .toBe(true);
     // and display the error message
-    const errorMessage = fixture.nativeElement.querySelector('#registration-error');
-    expect(errorMessage)
-      .withContext('You should display an error message in a div with id `registration-error` if the registration fails')
-      .not.toBeNull();
-    expect(errorMessage.textContent).toContain('Try again with another login.');
+    const errorMessage = fixture.debugElement.query(By.directive(AlertComponent));
+    expect(errorMessage).withContext('You should display an error message in an AlertComponent if the registration fails').not.toBeNull();
+    expect(errorMessage.nativeElement.textContent).toContain('Try again with another login.');
+    expect(errorMessage.componentInstance.type).withContext('The alert should be a danger one').toBe('danger');
   });
 });

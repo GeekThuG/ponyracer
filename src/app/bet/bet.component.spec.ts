@@ -5,12 +5,13 @@ import { By } from '@angular/platform-browser';
 import { of, throwError } from 'rxjs';
 import { formatDistanceToNowStrict, parseISO } from 'date-fns';
 
+import { RacesModule } from '../races/races.module';
 import { RaceService } from '../race.service';
 import { BetComponent } from './bet.component';
 import { PonyComponent } from '../pony/pony.component';
-import { FromNowPipe } from '../from-now.pipe';
 import { RaceModel } from '../models/race.model';
 import { PonyModel } from '../models/pony.model';
+import { AlertComponent } from '../shared/alert/alert.component';
 
 describe('BetComponent', () => {
   const fakeRaceService = jasmine.createSpyObj<RaceService>('RaceService', ['bet', 'cancelBet']);
@@ -19,8 +20,7 @@ describe('BetComponent', () => {
 
   beforeEach(() =>
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule],
-      declarations: [BetComponent, PonyComponent, FromNowPipe],
+      imports: [RacesModule, RouterTestingModule],
       providers: [
         { provide: RaceService, useValue: fakeRaceService },
         { provide: ActivatedRoute, useValue: fakeActivatedRoute }
@@ -154,9 +154,18 @@ describe('BetComponent', () => {
 
     fixture.detectChanges();
 
-    const element = fixture.nativeElement;
-    const message = element.querySelector('.alert.alert-danger');
-    expect(message.textContent).toContain('The race is already started or finished');
+    const debugElement = fixture.debugElement;
+    const message = debugElement.query(By.directive(AlertComponent));
+    expect(message).withContext('You should have an AlertComponent if the bet failed').not.toBeNull();
+    expect(message.nativeElement.textContent).toContain('The race is already started or finished');
+    expect(message.componentInstance.type).withContext('The alert should be a danger one').toBe('danger');
+
+    // close the alert
+    message.componentInstance.closeHandler();
+    fixture.detectChanges();
+    expect(debugElement.query(By.directive(AlertComponent)))
+      .withContext('The AlertComponent should be closable')
+      .toBeNull();
   });
 
   it('should cancel a bet', () => {
